@@ -3,6 +3,8 @@
 ## Application Available
 
 [Gallery App on Vercel](https://gallery-app-six-phi.vercel.app)
+Log in to my test profile using the email piekarska.paulina97@gmail.com and the password Komar123!
+
 
 ## Navigation
 

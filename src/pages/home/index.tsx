@@ -1,12 +1,9 @@
-//pages/home/index.tsx
 import Layout from "@/components/layout";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUserAuth } from "@/context/userAuthContext";
 import { getPosts } from "@/repository/post.service";
-import { getAllUsers } from "@/repository/user.service";
-import { DocumentResponse, UserProfile } from "@/types";
-import { useNavigate } from "react-router-dom";
+import { DocumentResponse } from "@/types";
 import StyledPostCard from "@/components/postCard";
 
 const HomeContainer = styled.div`
@@ -14,7 +11,7 @@ const HomeContainer = styled.div`
   flex-direction: column;
   padding: 1rem;
   max-width: 1000px;
-    margin: auto;
+  margin: auto;
 `;
 
 const FeedContainer = styled.div`
@@ -36,10 +33,7 @@ const FeedGrid = styled.div`
 const Home: React.FC = () => {
   const { user } = useUserAuth();
   const [posts, setPosts] = useState<DocumentResponse[]>([]);
-  const [users, setUsers] = useState<UserProfile[]>([]);
-  const navigate = useNavigate();
 
-  // Pobieramy posty z backendu
   const fetchPosts = async () => {
     const res = await getPosts();
     const postsExcludingSelf = res?.filter(
@@ -48,21 +42,11 @@ const Home: React.FC = () => {
     setPosts(postsExcludingSelf || []);
   };
 
-  const fetchUsers = async () => {
-    const res = await getAllUsers(user?.uid || "");
-    setUsers(res || []);
-  };
-
   useEffect(() => {
     if (user) {
       fetchPosts();
-      fetchUsers();
     }
   }, [user]);
-
-  const handleSearch = (searchTerm: string, activeTab: "posts" | "users") => {
-    navigate("/search", { state: { searchTerm, activeTab } });
-  };
 
   const renderFeed = () => (
     <FeedGrid>

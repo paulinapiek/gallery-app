@@ -7,10 +7,11 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  sendEmailVerification, // <-- Dodajemy import sendEmailVerification
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
-import {ProfileInfo} from "@/types";
+import { ProfileInfo } from "@/types";
 
 interface IUserAuthProviderProps {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ type AuthContextData = {
   logOut: typeof logOut;
   googleSignIn: typeof googleSignIn;
   updateProfileInfo: typeof updateProfileInfo;
+  sendVerificationEmail: (user: User) => Promise<void>; // <-- Dodajemy typ funkcji wysyłania maila weryfikacyjnego
 };
 
 const logIn = (email: string, password: string) => {
@@ -34,7 +36,7 @@ const signUp = (email: string, password: string) => {
 };
 
 const logOut = () => {
-  signOut(auth);
+  return signOut(auth);
 };
 
 const googleSignIn = () => {
@@ -47,8 +49,13 @@ const updateProfileInfo = (profileInfo: ProfileInfo) => {
   return updateProfile(profileInfo.user!, {
     displayName: profileInfo.displayName,
     photoURL: profileInfo.photoURL,
-  })
-}
+  });
+};
+
+// Dodajemy funkcję wysyłającą email weryfikacyjny
+const sendVerificationEmail = (user: User) => {
+  return sendEmailVerification(user);
+};
 
 export const userAuthContext = createContext<AuthContextData>({
   user: null,
@@ -57,11 +64,10 @@ export const userAuthContext = createContext<AuthContextData>({
   logOut,
   googleSignIn,
   updateProfileInfo,
+  sendVerificationEmail, // <-- dodajemy do wartości domyślnej
 });
 
-export const UserAuthProvider: React.FunctionComponent<
-  IUserAuthProviderProps
-> = ({ children }) => {
+export const UserAuthProvider: React.FC<IUserAuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -70,13 +76,15 @@ export const UserAuthProvider: React.FunctionComponent<
       if (user) {
         console.log("The logged in user state is : ", user);
         setUser(user);
+      } else {
+        setUser(null);
       }
-
-      return () => {
-        unsubscribe();
-      };
     });
-  });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const value: AuthContextData = {
     user,
     logIn,
@@ -84,7 +92,9 @@ export const UserAuthProvider: React.FunctionComponent<
     logOut,
     googleSignIn,
     updateProfileInfo,
+    sendVerificationEmail,
   };
+
   return (
     <userAuthContext.Provider value={value}>
       {children}

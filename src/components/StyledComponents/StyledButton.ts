@@ -24,7 +24,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
         border: 1px solid black; 
         background-color: #fff;
         color: #374151;
-        max-width: 300px;
+        max-width: 400px;
         &:hover {
           background-color: black;
           color: white;
@@ -33,7 +33,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
       : `
         background-color: #1d4ed8;
         color: #fff;
-        max-width: 300px;
+        max-width: 400px;
         &:hover {
           background-color: white;
           border: 1px solid #1d3ed8;

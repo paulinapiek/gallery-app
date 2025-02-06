@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Edit2Icon } from "lucide-react";
 import { getPostByUserId } from "@/repository/post.service";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile, followUser, unfollowUser } from "@/repository/user.service";
+import { getUserProfile } from "@/repository/user.service";
 import PostCard from "@/components/postCard";
 import { StyledButton } from "@/components/StyledComponents/StyledButton";
 
@@ -19,7 +19,7 @@ const OuterContainer = styled.div`
 
 const CardContainer = styled.div`
   border: 1px solid #e2e8f0;
-  max-width: 960px;
+  max-width: 1000px;
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
@@ -27,7 +27,7 @@ const CardContainer = styled.div`
 `;
 
 const HeaderTitle = styled.h3`
-  background-color: #1e293b;
+  background-color: #000000;
   color: #fff;
   text-align: center;
   font-size: 1.125rem;
@@ -41,12 +41,15 @@ const ProfileWrapper = styled.div`
 
 const ProfileTopSection = styled.div`
   display: flex;
-  padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 2rem;
   align-items: center;
   gap: 1rem;
 `;
+const ProfileBottomSection = styled.div`
+padding: 2rem;
+  border-bottom: 1px solid #e2e8f0;
 
+`;
 const AvatarWrapper = styled.div`
   margin-right: 1rem;
 `;
@@ -80,18 +83,6 @@ const UserBioText = styled.div`
   font-size: 1rem;
 `;
 
-
-
-const EditProfileButton = styled.button`
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  background-color: #3b82f6;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-`;
-
 const Content = styled.div`
   padding: 2rem;
 `;
@@ -120,22 +111,15 @@ const Profile: React.FC = () => {
     userBio: "Update your profile",
     photoURL: user?.photoURL || "",
     displayName: user?.displayName || "Guest user",
-    followers: [],
   };
 
   const [userInfo, setUserInfo] = useState<ProfileResponse>(initialUserInfo);
   const [posts, setPosts] = useState<DocumentResponse[]>([]);
-  const [isFollowed, setIsFollowed] = useState<boolean>(false);
 
   const getUserProfileInfo = async (userId: string) => {
     const profileData: ProfileResponse = (await getUserProfile(userId)) || {};
     if (profileData.displayName) {
       setUserInfo(profileData);
-      if (user && profileData.followers && profileData.followers.includes(user.uid)) {
-        setIsFollowed(true);
-      } else {
-        setIsFollowed(false);
-      }
     }
   };
 
@@ -168,29 +152,6 @@ const Profile: React.FC = () => {
     }
   }, [user]);
 
-  const toggleFollow = async () => {
-    if (!user) return;
-    try {
-      if (isFollowed) {
-        await unfollowUser(userInfo.id!, user.uid);
-        setIsFollowed(false);
-        setUserInfo({
-          ...userInfo,
-          followers: userInfo.followers.filter((id) => id !== user.uid),
-        });
-      } else {
-        await followUser(userInfo.id!, user.uid);
-        setIsFollowed(true);
-        setUserInfo({
-          ...userInfo,
-          followers: [...(userInfo.followers || []), user.uid],
-        });
-      }
-    } catch (error) {
-      console.error("Error updating follow status:", error);
-    }
-  };
-
   const editProfile = () => {
     navigate("/edit-profile", { state: userInfo });
   };
@@ -213,18 +174,16 @@ const Profile: React.FC = () => {
                 <ProfileDetails>{userInfo.displayName}</ProfileDetails>
                 <ProfileEmailText>{user?.email || ""}</ProfileEmailText>
                 <UserBioText>{userInfo.userBio}</UserBioText>
-                {user && user.uid !== userInfo.userId && (
-                  <FollowButtonStyled followed={isFollowed} onClick={toggleFollow}>
-                    {isFollowed ? "Followed" : "Follow"}
-                  </FollowButtonStyled>
-                )}
+     
               </InfoWrapper>
-              {user && user.uid === userInfo.userId && (
+            </ProfileTopSection>
+            <ProfileBottomSection>
+                {user && user.uid === userInfo.userId && (
                 <StyledButton onClick={editProfile}>
                   <Edit2Icon style={{ marginRight: "0.5rem" }} /> Edit Profile
                 </StyledButton>
               )}
-            </ProfileTopSection>
+            </ProfileBottomSection>
             <Content>
               <h2 style={{ marginBottom: "1rem", textAlign: "center" }}>My Posts</h2>
               <Grid>{posts.length > 0 ? renderPosts() : <div>...Loading</div>}</Grid>
@@ -235,6 +194,5 @@ const Profile: React.FC = () => {
     </Layout>
   );
 };
-
 
 export default Profile;

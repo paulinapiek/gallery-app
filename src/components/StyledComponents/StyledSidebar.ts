@@ -12,7 +12,8 @@ export const SidebarContainer = styled.nav`
 `;
 
 export const SidebarLogo = styled.div`
-  text-align: center;
+  text-align: left;
+      padding-left: 1rem;
   color: white;
   font-size: 1.5rem;
   font-weight: bold;

@@ -21,24 +21,24 @@ const PageContainer = styled.div`
 
 const InnerWrapper = styled.div`
   border: 1px solid #e5e7eb;
-  max-width: 768px; /* Odpowiednik Tailwind max-w-3xl */
+  max-width: 1000px;
+  margin: auto;
   width: 100%;
 `;
 
 const Header = styled.h3`
-  background-color: #1e293b; /* bg-slate-800 */
+  background-color: #000000;
   color: #ffffff;
   text-align: center;
-  font-size: 1.125rem; /* text-lg ~ 18px */
-  padding: 0.5rem; /* p-2 */
+  font-size: 1.125rem;
+  padding: 0.5rem;
 `;
 
 const FormWrapper = styled.div`
-  padding: 2rem; /* p-8 */
+  padding: 2rem; 
 `;
 
 const StyledForm = styled.form`
-  /* Możesz dodać własne style, jeśli potrzebujesz */
 `;
 
 const FormGroup = styled.div`
@@ -80,8 +80,8 @@ const StyledTextarea = styled.textarea`
 const AvatarImage = styled.img`
   width: 7rem;
   height: 7rem;
-  border-radius: 9999px; /* full */
-  border: 2px solid #1e293b; /* slate-800 */
+  border-radius: 9999px;
+  border: 2px solid #000000;
   object-fit: cover;
   margin-bottom: 1rem;
 `;
@@ -131,7 +131,6 @@ const EditProfile: React.FC<IEditProfileProps> = () => {
 
       await updateUserInfoOnPosts(profileInfo);
 
-      // Przejście na stronę profilu
       navigate("/profile");
     } catch (err) {
       console.error(err);
@@ -170,7 +169,6 @@ const EditProfile: React.FC<IEditProfileProps> = () => {
                 />
               </FormGroup>
 
-              {/* Pole Display Name */}
               <FormGroup>
                 <StyledLabel htmlFor="displayName">Display Name</StyledLabel>
                 <StyledInput

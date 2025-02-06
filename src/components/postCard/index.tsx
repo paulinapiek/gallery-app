@@ -265,17 +265,6 @@ const ModalCommentButton = styled.button`
   cursor: pointer;
 `;
 
-const PostWrapper = styled.div`
-  height: 250px;
-  width: 100%;
-  overflow: hidden;
-  & img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
 const CommentsContainer = styled.div`
   font-size: 0.875rem;
   margin-top: 0.5rem;
@@ -311,14 +300,6 @@ const PhotoCounter = styled.div`
   font-size: 0.75rem;
 `;
 
-const OptionsButton = styled.button`
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 4px;
-`;
-
 
 
 
@@ -334,7 +315,6 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
 
   // Comments
   const [comments, setComments] = useState<string[]>(data.comments || []);
-  const [newComment, setNewComment] = useState<string>("");
 
   const [isFollowed, setIsFollowed] = useState<boolean>(false);
 

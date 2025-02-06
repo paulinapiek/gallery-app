@@ -10,7 +10,6 @@ import styled from "styled-components";
 
 interface ICreatePostProps {}
 
-// Reusable styled-components
 const Container = styled.div`
   padding: 1rem;
   max-width: 1000px;
@@ -24,20 +23,20 @@ const OuterWrapper = styled.div`
 
 const InnerWrapper = styled.div`
   border: 1px solid #e5e7eb;
-  max-width: 48rem; /* Tailwind's max-w-3xl (768px) */
+  max-width: 1000px; 
   width: 100%;
 `;
 
 const Header = styled.h3`
-  background-color: #1e293b; /* Tailwind's bg-slate-800 */
+  background-color: #000000;
   color: #ffffff;
   text-align: center;
-  font-size: 1.125rem; /* Tailwind's text-lg ~ 18px */
-  padding: 0.5rem; /* Tailwind's p-2 */
+  font-size: 1.125rem; 
+  padding: 0.5rem;
 `;
 
 const Content = styled.div`
-  padding: 2rem; /* Tailwind's p-8 */
+  padding: 2rem;
 `;
 
 const StyledForm = styled.form``;
@@ -57,7 +56,7 @@ const StyledTextarea = styled.textarea`
   margin-bottom: 1.5rem;
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #cbd5e1; /* a light gray, tweak as needed */
+  border: 1px solid #cbd5e1;
   border-radius: 0.25rem;
   resize: vertical;
 `;

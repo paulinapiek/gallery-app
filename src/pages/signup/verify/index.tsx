@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useUserAuth } from "../../../context/userAuthContext";
+import { useNavigate } from "react-router-dom";
+import { StyledButton } from "@/components/StyledComponents/StyledButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,22 +35,16 @@ const Text = styled.p`
   color: #374151;
 `;
 
-const Button = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-  &:hover {
-    background-color: #2563eb;
-  }
+// Dodany wrapper dla przycisków
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 const VerifyEmailPage: React.FC = () => {
   const { user, sendVerificationEmail } = useUserAuth();
+  const navigate = useNavigate();
 
   const handleSendEmail = async () => {
     if (user) {
@@ -61,14 +57,26 @@ const VerifyEmailPage: React.FC = () => {
     }
   };
 
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <Wrapper>
       <Card>
         <Title>Verify Your Email</Title>
         <Text>
-          Please check your email inbox and click the verification link to activate your account.
+          Please check your email inbox and click the verification link to
+          activate your account.
         </Text>
-        <Button onClick={handleSendEmail}>Resend Verification Email</Button>
+        <ButtonsWrapper>
+          <StyledButton onClick={handleSendEmail}>
+            Resend Verification Email
+          </StyledButton>
+          <StyledButton variant="outline" onClick={goToLogin}>
+            Go to login Page
+          </StyledButton>
+        </ButtonsWrapper>
       </Card>
     </Wrapper>
   );

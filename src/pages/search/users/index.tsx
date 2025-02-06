@@ -1,4 +1,3 @@
-// pages/search/users/index.tsx
 import Layout from "@/components/layout";
 import React, { useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
@@ -27,6 +26,7 @@ const StyledSearchInput = styled.input`
   padding: 0 3rem 0 1rem;
   border-radius: 0.125rem;
   font-size: 1rem;
+  width: 100%;
   &:focus {
     outline: none;
   }
@@ -90,15 +90,23 @@ const UsersPage: React.FC = () => {
   const { user } = useUserAuth();
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const currentUserId = user?.uid || "";
-      const res = (await getAllUsers(currentUserId)) || [];
-      setUsers(res);
-    };
-    if (user) {
-      fetchUsers();
-    }
-  }, [user]);
+  const fetchUsers = async () => {
+    const currentUserId = user?.uid || "";
+    const res = (await getAllUsers(currentUserId)) || [];
+
+    const formattedUsers: UserProfile[] = res.map((profile) => ({
+      ...profile,
+      displayName: profile.displayName || "Unknown User",
+    }));
+
+    setUsers(formattedUsers);
+  };
+
+  if (user) {
+    fetchUsers();
+  }
+}, [user]);
+
 
   const filteredUsers = useMemo(() => {
     if (!searchTerm) return users;

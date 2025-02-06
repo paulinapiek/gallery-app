@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useUserAuth } from "../../context/userAuthContext";
 import {
   SidebarContainer,
@@ -15,7 +15,7 @@ import myphotosIcon from "../../assets/icons/myphotos.svg";
 import profileIcon from "../../assets/icons/profile.svg";
 import SearchIcon  from "../../assets/icons/search.svg";
 import SearchPosts from "../../assets/icons/posts.png";
-import SearchUsers from "../../assets/icons/users.png"
+import SearchUsers from "../../assets/icons/users.png";
 
 const navItems = [
   { name: "Home", link: "/", icon: home },
@@ -26,7 +26,6 @@ const navItems = [
   { name: "My Photos", link: "/myphotos", icon: myphotosIcon },
   { name: "Profile", link: "/profile", icon: profileIcon },
 ];
-
 
 const Sidebar: React.FC = () => {
   const { pathname } = useLocation();

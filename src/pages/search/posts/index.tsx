@@ -1,4 +1,3 @@
-// /pages/result/posts/index.tsx
 import React, { useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
 import Layout from "@/components/layout";
@@ -18,15 +17,6 @@ const StyledSearchInput = styled.input`
   &:focus {
     outline: none;
   }
-`;
-
-const SearchButton = styled.button`
-  position: absolute;
-  right: 0.75rem;
-  top: 0.75rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
 `;
 
 const FilterText = styled.p`

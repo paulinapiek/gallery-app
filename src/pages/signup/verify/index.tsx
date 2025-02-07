@@ -35,7 +35,6 @@ const Text = styled.p`
   color: #374151;
 `;
 
-// Dodany wrapper dla przycisków
 const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;

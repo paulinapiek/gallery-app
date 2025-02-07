@@ -7,8 +7,6 @@ import { getPostByUserId } from "@/repository/post.service";
 import { DocumentResponse, Post } from "@/types";
 import { HeartIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
-// ─── Styled Components dla MyPhotos ─────────────────────────────
-
 const OuterContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -35,7 +33,6 @@ const Content = styled.div`
   padding: 2rem;
 `;
 
-// Siatka postów – responsywna
 const Grid = styled.div`
   display: grid;
   gap: 1rem;
@@ -45,7 +42,6 @@ const Grid = styled.div`
   }
 `;
 
-// ─── Styled Components dla PhotoItem ───────────────────────────
 
 const PhotoItemContainer = styled.div`
   position: relative;
@@ -103,7 +99,6 @@ const RightArrowButton = styled(ArrowButton)`
   right: 0.5rem;
 `;
 
-// Modal styles (opcjonalne – możesz dodać, jeśli modal ma być wyświetlany)
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -162,7 +157,6 @@ const DownloadButton = styled.button`
   border-radius: 4px;
 `;
 
-// Wrapper wymuszający stałą wysokość 250px dla zdjęcia posta
 const PostWrapper = styled.div`
   height: 250px;
   width: 100%;
@@ -174,8 +168,6 @@ const PostWrapper = styled.div`
     object-fit: cover;
   }
 `;
-
-// ─── Komponent PhotoItem ─────────────────────────────────────────
 
 interface PhotoItemProps {
   item: DocumentResponse;
@@ -265,7 +257,6 @@ const PhotoItem: React.FC<PhotoItemProps> = ({ item }) => {
   );
 };
 
-// ─── Komponent MyPhotos ─────────────────────────────────────────
 
 const MyPhotos: React.FC = () => {
   const { user } = useUserAuth();

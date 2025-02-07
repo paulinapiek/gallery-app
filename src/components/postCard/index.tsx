@@ -300,10 +300,6 @@ const PhotoCounter = styled.div`
   font-size: 0.75rem;
 `;
 
-
-
-
-
 const PostCard: React.FC<PostCardProps> = ({ data }) => {
   const { user } = useUserAuth();
   const navigate = useNavigate();
@@ -313,26 +309,20 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
     data.userlikes ? data.userlikes.includes(user?.uid || "") : false
   );
 
-  // Comments
   const [comments, setComments] = useState<string[]>(data.comments || []);
 
   const [isFollowed, setIsFollowed] = useState<boolean>(false);
 
-  // Carousel state
   const photos = data.photos || [];
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  // Modal state do pełnego widoku posta
   const [showFullPostModal, setShowFullPostModal] = useState<boolean>(false);
-  // Modal comment input (wewnątrz popupu)
   const [modalNewComment, setModalNewComment] = useState<string>("");
 
-  // Opcje edycji posta (tylko dla autora)
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedCaption, setEditedCaption] = useState<string>(data.caption || "");
 
-  // Toggle like – aktualizacja polubień z zapisem w backendzie
   const toggleLike = async () => {
     let newLikes;
     let newUserlikes = data.userlikes ? [...data.userlikes] : [];
@@ -368,15 +358,12 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
     setCurrentIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
   };
 
-  // Toggle follow – tylko dla autorów innych niż aktualny użytkownik
   const toggleFollow = () => {
     if (user && data.userId !== user.uid) {
       setIsFollowed(!isFollowed);
-      // Dodaj wywołanie API do follow/unfollow, jeśli wymagane
     }
   };
 
-  // Dodawanie komentarza z poziomu modal – persistujemy komentarze przez API
   const handleModalAddComment = async () => {
     if (modalNewComment.trim()) {
       const comment = `${user?.displayName || "Guest"}: ${modalNewComment}`;
@@ -416,7 +403,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
   const handleDeletePost = async () => {
     try {
       await deletePost(data.id!);
-      navigate("/"); // lub inna akcja po usunięciu
+      navigate("/");
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -593,7 +580,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
               />
               <ModalCommentButton onClick={handleModalAddComment}>
                 Post
-              </ModalCommentButton>
+              </ModalCommentButton>W
             </ModalCommentInputContainer>
           </FullPostModalContent>
         </FullPostModalOverlay>

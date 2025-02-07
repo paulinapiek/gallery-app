@@ -1,5 +1,4 @@
 // src/components/Login/Login.tsx
-
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { StyledGoogleIcon } from "../../components/StyledComponents/StyledIcons";
@@ -10,13 +9,6 @@ import { CardWrapper, CardHeader, CardTitle, CardDescription, CardContent, CardF
 import { StyledInput } from "../../components/StyledComponents/StyledInput";
 import { StyledBlock } from "../../components/StyledComponents/StyledBlock";
 import styled from "styled-components";
-
-// import {
-//   getAuth,
-//   signInWithEmailAndPassword,
-//   setPersistence,
-//   browserSessionPersistence,
-// } from "firebase/auth";
 
 import { useUserAuth } from "../../context/userAuthContext";
 
@@ -127,7 +119,6 @@ const Login: React.FunctionComponent = () => {
               </CardHeader>
 
               <CardContent>
-                {/* Google Sign-In */}
                 <div>
                   <StyledButton variant="outline" onClick={handleGoogleSignIn}>
                     <StyledGoogleIcon style={{ marginRight: "0.5rem" }} />
@@ -135,13 +126,11 @@ const Login: React.FunctionComponent = () => {
                   </StyledButton>
                 </div>
 
-                {/* Separator */}
                 <SeparatorWrapper>
                   <SeparatorLine />
                   <SeparatorText>Or</SeparatorText>
                 </SeparatorWrapper>
 
-                {/* Email Input */}
                 <StyledBlock>
                   <StyledLabel htmlFor="email">Email address</StyledLabel>
                   <StyledInput
@@ -155,7 +144,6 @@ const Login: React.FunctionComponent = () => {
                   />
                 </StyledBlock>
 
-                {/* Password Input */}
                 <StyledBlock>
                   <StyledLabel htmlFor="password">Password</StyledLabel>
                   <StyledInput

@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
-  sendEmailVerification, // <-- Dodajemy import sendEmailVerification
+  sendEmailVerification,
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
@@ -24,7 +24,7 @@ type AuthContextData = {
   logOut: typeof logOut;
   googleSignIn: typeof googleSignIn;
   updateProfileInfo: typeof updateProfileInfo;
-  sendVerificationEmail: (user: User) => Promise<void>; // <-- Dodajemy typ funkcji wysyłania maila weryfikacyjnego
+  sendVerificationEmail: (user: User) => Promise<void>;
 };
 
 const logIn = (email: string, password: string) => {
@@ -52,7 +52,6 @@ const updateProfileInfo = (profileInfo: ProfileInfo) => {
   });
 };
 
-// Dodajemy funkcję wysyłającą email weryfikacyjny
 const sendVerificationEmail = (user: User) => {
   return sendEmailVerification(user);
 };
@@ -64,7 +63,7 @@ export const userAuthContext = createContext<AuthContextData>({
   logOut,
   googleSignIn,
   updateProfileInfo,
-  sendVerificationEmail, // <-- dodajemy do wartości domyślnej
+  sendVerificationEmail,
 });
 
 export const UserAuthProvider: React.FC<IUserAuthProviderProps> = ({ children }) => {

@@ -1,7 +1,6 @@
 // src/StyledComponents/StyledCard.ts
 import styled from "styled-components";
 
-// Główne "opakowanie" karty
 export const CardWrapper = styled.div`
   max-width: 24rem;
   width: 100%;
